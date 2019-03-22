@@ -2,19 +2,15 @@
 // Main Sass file for imports
 //
 
-// Bulma
-@import "bulma/sass/utilities/_all.sass";
-@import "bulma/sass/grid/columns.sass";
-@import "bulma/sass/elements/button.sass";
-@import "bulma/sass/elements/form.sass";
-@import "bulma/sass/elements/other.sass";
-@import "bulma/sass/components/navbar.sass";
 
 // Base Sass Files
-@import "base/setup";
 @import "base/variables";
-@import "base/mixins";
+@import "bulma/bulma.sass";
+@import "base/setup";
 @import "base/general";
+@import "base/mixins";
 
 // Components
-@import "components/header"
+@import "components/header";
+@import "components/login";
+@import "components/register";
