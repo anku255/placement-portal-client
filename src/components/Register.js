@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import { registerUser } from "../_actions";
 import Input from "../components/common/form/Input";
+import cx from "classnames";
 
 class Register extends Component {
   state = { email: "", name: "", password: "" };
@@ -11,9 +13,11 @@ class Register extends Component {
 
   handleSumbit = e => {
     e.preventDefault();
+    this.props.registerUser(this.state, this.props.history);
   };
 
   render() {
+    const { errors, loading } = this.props;
     return (
       <div className="container register">
         <div className="title is-size-2 has-text-centered">Sign up</div>
@@ -23,6 +27,8 @@ class Register extends Component {
           placeholder="Name"
           name="name"
           onChange={this.handleInputChange}
+          value={this.state.name}
+          errorText={errors.name}
         />
         <Input
           label="Email"
@@ -30,6 +36,8 @@ class Register extends Component {
           placeholder="Email"
           name="email"
           onChange={this.handleInputChange}
+          value={this.state.email}
+          errorText={errors.email}
         />
         <Input
           label="Password"
@@ -37,8 +45,13 @@ class Register extends Component {
           placeholder="Password"
           name="password"
           onChange={this.handleInputChange}
+          value={this.state.password}
+          errorText={errors.password}
         />
-        <button className="button is-primary" onClick={this.handleSumbit}>
+        <button
+          className={cx("button is-primary", { "is-loading": loading })}
+          onClick={this.handleSumbit}
+        >
           Submit
         </button>
       </div>
@@ -46,4 +59,12 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapStateToProps = state => ({
+  errors: state.users.errors,
+  loading: state.users.loading
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(Register);

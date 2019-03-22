@@ -2,13 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function Input(props) {
+  const { label, errorText, ...inputProps } = props;
   return (
     <div className="field">
-      <label className="label">{props.label}</label>
+      <label className="label">{label}</label>
       <div className="control">
-        <input className="input" {...props} />
+        <input className="input" {...inputProps} />
       </div>
-      <p className="help is-danger">{props.errorText}</p>
+      <p className="help is-danger">{errorText}</p>
     </div>
   );
 }
