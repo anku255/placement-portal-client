@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { logoutUser } from "../_actions";
 
 class Header extends Component {
   componentDidMount = () => {
@@ -27,6 +29,31 @@ class Header extends Component {
         });
       });
     }
+  };
+
+  NavbarEndMenuItems = () => {
+    const { isAuthenticated, user, logoutUser } = this.props;
+
+    if (isAuthenticated) {
+      return (
+        <div className="buttons">
+          <div className="button">Hello, {user.name}</div>
+          <div onClick={logoutUser} className="button is-light">
+            Logout
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="buttons">
+        <a href="/register" className="button is-primary">
+          <strong>Sign up</strong>
+        </a>
+        <a href="/login" className="button is-light">
+          Log in
+        </a>
+      </div>
+    );
   };
 
   render() {
@@ -59,14 +86,7 @@ class Header extends Component {
 
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="buttons">
-                <a href="/register" className="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
-                <a href="/login" className="button is-light">
-                  Log in
-                </a>
-              </div>
+              <this.NavbarEndMenuItems />
             </div>
           </div>
         </div>
@@ -75,4 +95,12 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => ({
+  isAuthenticated: state.users.isAuthenticated,
+  user: state.users.user
+});
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Header);

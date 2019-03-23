@@ -28,6 +28,12 @@ export default function users(state = initialState, action) {
         user: action.payload,
         isAuthenticated: true
       };
+    case userConstants.LOGOUT:
+      return {
+        ...state,
+        user: {},
+        isAuthenticated: false
+      };
     case userConstants.CLEAR_ERRORS:
       return {
         ...state,
