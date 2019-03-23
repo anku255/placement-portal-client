@@ -1,0 +1,12 @@
+.upload-cv-container {
+  margin: 10rem auto;
+  max-width: 800px;
+  padding: 1rem;
+  border: 1px solid black;
+  text-align: center;
+
+  & > .button {
+    margin-top: 1rem;
+    width: 7rem;
+  }
+}

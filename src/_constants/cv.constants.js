@@ -1,0 +1,4 @@
+export const cvConstants = {
+  UPLOAD_START: "CV_UPLOAD_START",
+  UPLOAD_SUCCESS: "CV_UPLOAD_SUCCESS"
+};
