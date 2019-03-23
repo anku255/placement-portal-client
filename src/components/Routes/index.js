@@ -3,12 +3,14 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import Login from "../Login";
 import Register from "../Register";
+import CVManagement from "../CVManagement";
 
 export default function Routes() {
   return (
     <BrowserRouter>
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
+      <Route path="/cv" exact component={CVManagement} />
     </BrowserRouter>
   );
 }
