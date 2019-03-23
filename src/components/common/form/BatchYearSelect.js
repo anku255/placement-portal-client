@@ -12,11 +12,11 @@ const BatchYearSelect = props => {
             onChange={props.handleInputChange}
             value={props.value}
           >
-            <option>{currentYear}</option>
-            <option>{currentYear + 1}</option>
-            <option>{currentYear + 2}</option>
-            <option>{currentYear + 3}</option>
-            <option>{currentYear + 4}</option>
+            <option>{+currentYear}</option>
+            <option>{+currentYear + 1}</option>
+            <option>{+currentYear + 2}</option>
+            <option>{+currentYear + 3}</option>
+            <option>{+currentYear + 4}</option>
           </select>
         </div>
         <p className="help is-danger">{props.errorText}</p>
