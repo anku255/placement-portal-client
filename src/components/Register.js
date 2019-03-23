@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { registerUser } from "../_actions";
 import Input from "../components/common/form/Input";
+import BatchYearSelect from "../components/common/form/BatchYearSelect";
 import cx from "classnames";
 
 class Register extends Component {
@@ -9,39 +10,17 @@ class Register extends Component {
     email: "",
     name: "",
     password: "",
-    batchYear: new Date().getFullYear(),
+    batchYear: new Date().getFullYear().toString(),
     regNo: ""
   };
 
   handleInputChange = e => {
-    console.log("e.target", e.target);
     this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSumbit = e => {
     e.preventDefault();
     this.props.registerUser(this.state, this.props.history);
-  };
-
-  BatchYearSelect = () => {
-    const currentYear = new Date().getFullYear();
-    return (
-      <div className="field">
-        <label className="label">Batch Year</label>
-        <div className="control">
-          <div className="select">
-            <select name="batchYear" onChange={this.handleInputChange}>
-              <option>{currentYear}</option>
-              <option>{currentYear + 1}</option>
-              <option>{currentYear + 2}</option>
-              <option>{currentYear + 3}</option>
-              <option>{currentYear + 4}</option>
-            </select>
-          </div>
-          <p className="help is-danger">{this.props.errors.batchYear}</p>
-        </div>
-      </div>
-    );
   };
 
   render() {
@@ -76,7 +55,11 @@ class Register extends Component {
           value={this.state.password}
           errorText={errors.password}
         />
-        <this.BatchYearSelect />
+        <BatchYearSelect
+          handleInputChange={this.handleInputChange}
+          errorText={errors.batchYear}
+          value={this.state.batchYear}
+        />
         <Input
           label="Registration Number"
           type="number"
