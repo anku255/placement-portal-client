@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
+import PrivateRoute from "../common/PrivateRoute";
 import Login from "../Login";
 import Register from "../Register";
 import CVManagement from "../CVManagement";
@@ -10,7 +11,7 @@ export default function Routes() {
     <BrowserRouter>
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
-      <Route path="/cv" exact component={CVManagement} />
+      <PrivateRoute path="/cv" exact component={CVManagement} />
     </BrowserRouter>
   );
 }
