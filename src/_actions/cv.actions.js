@@ -51,3 +51,22 @@ export const uploadCV = (data, history) => dispatch => {
       );
     });
 };
+
+export const fetchCV = () => async dispatch => {
+  dispatch({ type: cvConstants.FETCH_CV_START });
+  try {
+    const res = await axios.get("/api/cv");
+    const cvUrl = res.data;
+    // open a new tab with direct cvUrl
+    window.open(cvUrl, "_blank");
+
+    dispatch({ type: cvConstants.FETCH_CV_SUCCESS });
+  } catch (err) {
+    dispatch(
+      errorNotification({
+        ...notificationOpts,
+        title: err.response.data.message
+      })
+    );
+  }
+};
