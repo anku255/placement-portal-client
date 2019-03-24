@@ -30,7 +30,7 @@ export const uploadCV = (data, history) => dispatch => {
       );
 
       // fetch current user for updated info
-      const response = await axios.post("/api/users/current_user");
+      const response = await axios.post(`${SERVER_URL}/api/users/current_user`);
       const { token } = response.data;
       localStorage.setItem("jwtToken", token);
       const decoded = jwt_decode(token);
@@ -98,7 +98,7 @@ export const fetchCVByRegNo = (batchYear, regNo) => async dispatch => {
   }
 };
 
-export const fetchAllCV = (batchYear) => async dispatch => {
+export const fetchAllCV = batchYear => async dispatch => {
   dispatch({ type: cvConstants.FETCH_CV_START });
   try {
     const res = await axios.get(
