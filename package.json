@@ -1,5 +1,5 @@
 {
-  "name": "placement-cell-db-client",
+  "name": "placement-portal-client",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
