@@ -10,10 +10,19 @@
 }
 
 .cv-admin-view {
-  display: flex;
-  justify-content: center;
-  height: 50vh;
-  margin-top: 10rem;
+  margin: 10rem auto;
+  max-width: 800px;
+  padding: 1rem;
+  border: 1px solid black;
+  flex-wrap: wrap;
 
-
+  .title {
+    width: 100%;
+    text-align: center;
+  }
+  .column {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

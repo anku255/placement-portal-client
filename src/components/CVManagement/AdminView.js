@@ -30,43 +30,47 @@ class AdminView extends Component {
   };
 
   render() {
-    // TODO:
     const { fetchingCV } = this.props;
     return (
-      <div className="cv-admin-view">
-        <div className="get-single-cv">
-          <BatchYearSelect
-            handleInputChange={this.handleInputChange}
-            value={this.state.batchYear}
-          />
-          <Input
-            label="Registration Number"
-            type="number"
-            placeholder="0000111"
-            name="regNo"
-            onChange={this.handleInputChange}
-            value={this.state.regNo}
-            errorText={this.state.errors.regNo}
-          />
-          <button
-            className={cx("button is-primary", { "is-loading": fetchingCV })}
-            onClick={this.fetchCVByRegNo}
-          >
-            Get CV
-          </button>
+      <div className="cv-admin-view columns">
+      <div className="title is-size-2">Download CV</div>
+        <div className="column">
+          <div className="get-single-cv">
+            <BatchYearSelect
+              handleInputChange={this.handleInputChange}
+              value={this.state.batchYear}
+            />
+            <Input
+              label="Registration Number"
+              type="number"
+              placeholder="0000111"
+              name="regNo"
+              onChange={this.handleInputChange}
+              value={this.state.regNo}
+              errorText={this.state.errors.regNo}
+            />
+            <button
+              className={cx("button is-primary", { "is-loading": fetchingCV })}
+              onClick={this.fetchCVByRegNo}
+            >
+              Get CV
+            </button>
+          </div>
         </div>
 
-        <div className="get-all-cv">
-          <BatchYearSelect
-            handleInputChange={this.handleInputChange}
-            value={this.state.batchYear}
-          />
-          <button
-            className={cx("button is-primary", { "is-loading": fetchingCV })}
-            onClick={() => this.props.fetchAllCV(this.state.batchYear)}
-          >
-            Get All CVs 
-          </button>
+        <div className="column">
+          <div className="get-all-cv">
+            <BatchYearSelect
+              handleInputChange={this.handleInputChange}
+              value={this.state.batchYear}
+            />
+            <button
+              className={cx("button is-primary", { "is-loading": fetchingCV })}
+              onClick={() => this.props.fetchAllCV(this.state.batchYear)}
+            >
+              Get All CVs
+            </button>
+          </div>
         </div>
       </div>
     );
