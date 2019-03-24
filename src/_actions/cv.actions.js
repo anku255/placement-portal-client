@@ -30,7 +30,7 @@ export const uploadCV = (data, history) => dispatch => {
       );
 
       // fetch current user for updated info
-      const response = await axios.get("/api/users/current_user");
+      const response = await axios.post("/api/users/current_user");
       const { token } = response.data;
       localStorage.setItem("jwtToken", token);
       const decoded = jwt_decode(token);
