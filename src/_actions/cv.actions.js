@@ -80,13 +80,37 @@ export const fetchCVByRegNo = (batchYear, regNo) => async dispatch => {
     const res = await axios.get(
       `/api/cv/batchYear/${batchYear}/regNo/${regNo}`
     );
-    console.log("res", res);
     const cvUrl = res.data;
     // open a new tab with direct cvUrl
     window.open(cvUrl, "_blank");
 
     dispatch({ type: cvConstants.FETCH_CV_SUCCESS });
   } catch (err) {
+    dispatch(
+      errorNotification({
+        ...notificationOpts,
+        title: err.response.data.message
+      })
+    );
+
+    // make fetchingCV false
+    dispatch({ type: cvConstants.FETCH_CV_SUCCESS });
+  }
+};
+
+export const fetchAllCV = (batchYear) => async dispatch => {
+  dispatch({ type: cvConstants.FETCH_CV_START });
+  try {
+    const res = await axios.get(
+      `/api/cv/all/batchYear/${batchYear}`
+    );
+    const cvUrl = res.data;
+    // open a new tab with direct cvUrl
+    window.open(cvUrl, "_blank");
+
+    dispatch({ type: cvConstants.FETCH_CV_SUCCESS });
+  } catch (err) {
+    console.log("err", err.response);
     dispatch(
       errorNotification({
         ...notificationOpts,

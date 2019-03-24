@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import BatchYearSelect from "../common/form/BatchYearSelect";
 import Input from "../common/form/Input";
 import cx from "classnames";
-import { fetchCVByRegNo } from "../../_actions";
+import { fetchCVByRegNo, fetchAllCV } from "../../_actions";
 
 class AdminView extends Component {
   state = {
@@ -31,7 +31,7 @@ class AdminView extends Component {
 
   render() {
     // TODO:
-    const { fetchingCV} = this.props;
+    const { fetchingCV } = this.props;
     return (
       <div className="cv-admin-view">
         <div className="get-single-cv">
@@ -63,9 +63,9 @@ class AdminView extends Component {
           />
           <button
             className={cx("button is-primary", { "is-loading": fetchingCV })}
-            onClick={this.handleSumbit}
+            onClick={() => this.props.fetchAllCV(this.state.batchYear)}
           >
-            Get All CVs
+            Get All CVs 
           </button>
         </div>
       </div>
@@ -79,5 +79,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchCVByRegNo }
+  { fetchCVByRegNo, fetchAllCV }
 )(AdminView);
