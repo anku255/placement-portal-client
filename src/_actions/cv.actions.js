@@ -5,7 +5,7 @@ import {
   success as successNotification
 } from "react-notification-system-redux";
 import { setCurrentUser } from "./user.actions";
-import { cvConstants } from "../_constants";
+import { cvConstants, SERVER_URL } from "../_constants";
 
 const notificationOpts = {
   title: "",
@@ -18,7 +18,7 @@ export const uploadCV = (data, history) => dispatch => {
   dispatch({ type: cvConstants.UPLOAD_START });
 
   axios
-    .post("/api/cv", data)
+    .post(`${SERVER_URL}/api/cv`, data)
     .then(async res => {
       // show a success notification for 2s
       dispatch(
@@ -55,7 +55,7 @@ export const uploadCV = (data, history) => dispatch => {
 export const fetchCV = () => async dispatch => {
   dispatch({ type: cvConstants.FETCH_CV_START });
   try {
-    const res = await axios.get("/api/cv");
+    const res = await axios.get(`${SERVER_URL}/api/cv`);
     const cvUrl = res.data;
     // open a new tab with direct cvUrl
     window.open(cvUrl, "_blank");
@@ -78,7 +78,7 @@ export const fetchCVByRegNo = (batchYear, regNo) => async dispatch => {
   dispatch({ type: cvConstants.FETCH_CV_START });
   try {
     const res = await axios.get(
-      `/api/cv/batchYear/${batchYear}/regNo/${regNo}`
+      `${SERVER_URL}/api/cv/batchYear/${batchYear}/regNo/${regNo}`
     );
     const cvUrl = res.data;
     // open a new tab with direct cvUrl
@@ -102,7 +102,7 @@ export const fetchAllCV = (batchYear) => async dispatch => {
   dispatch({ type: cvConstants.FETCH_CV_START });
   try {
     const res = await axios.get(
-      `/api/cv/all/batchYear/${batchYear}`
+      `${SERVER_URL}/api/cv/all/batchYear/${batchYear}`
     );
     const cvUrl = res.data;
     // open a new tab with direct cvUrl

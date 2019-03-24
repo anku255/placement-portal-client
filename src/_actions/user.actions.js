@@ -6,6 +6,7 @@ import {
   success as successNotification
 } from "react-notification-system-redux";
 import setAuthToken from "../utils/setAuthToken";
+import { SERVER_URL } from '../_constants';
 
 const notificationOpts = {
   title: "",
@@ -18,7 +19,7 @@ export const loginUser = (userData, history) => dispatch => {
   dispatch({ type: userConstants.REQUEST });
 
   axios
-    .post("/api/users/login", userData)
+    .post(`${SERVER_URL}/api/users/login`, userData)
     .then(res => {
       dispatch(
         successNotification({
@@ -65,7 +66,7 @@ export const registerUser = (userData, history) => dispatch => {
   dispatch({ type: userConstants.REQUEST });
 
   axios
-    .post("/api/users/register", userData)
+    .post(`${SERVER_URL}/api/users/register`, userData)
     .then(res => {
       dispatch(
         successNotification({
