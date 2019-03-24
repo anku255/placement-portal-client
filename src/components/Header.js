@@ -64,9 +64,11 @@ class Header extends Component {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a className="navbar-item">React</a>
+          <a href="/" className="navbar-item">
+            Placement Portal
+          </a>
 
-          <a
+          <div
             role="button"
             className="navbar-burger burger"
             aria-label="menu"
@@ -76,12 +78,14 @@ class Header extends Component {
             <span aria-hidden="true" />
             <span aria-hidden="true" />
             <span aria-hidden="true" />
-          </a>
+          </div>
         </div>
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item">MenuItem</a>
+            <a href="/cv" className="navbar-item">
+              Manage CV
+            </a>
           </div>
 
           <div className="navbar-end">
