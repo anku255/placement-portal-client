@@ -64,7 +64,10 @@ class Header extends Component {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a href="/" className="navbar-item">
+          <a
+            href="/"
+            className="navbar-item is-size-3 has-text-weight-bold"
+          >
             Placement Portal
           </a>
 
