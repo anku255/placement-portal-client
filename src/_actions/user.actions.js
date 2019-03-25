@@ -6,7 +6,7 @@ import {
   success as successNotification
 } from "react-notification-system-redux";
 import setAuthToken from "../utils/setAuthToken";
-import { SERVER_URL } from '../_constants';
+import { SERVER_URL } from "../_constants";
 
 const notificationOpts = {
   title: "",
@@ -72,8 +72,12 @@ export const registerUser = (userData, history) => dispatch => {
         successNotification({
           ...notificationOpts,
           title: "Registration Successfull!",
-          message: "Please check your email to verify your account",
-          autoDismiss: 0
+          message: res.data.message,
+          autoDismiss: 0,
+          action: {
+            label: "Resend Confirmation Email",
+            callback: () => resendConfirmation(userData.email, dispatch)
+          }
         })
       );
 
@@ -116,4 +120,26 @@ export const logoutUser = () => dispatch => {
   // Remove auth header for future requests
   setAuthToken(false);
   dispatch({ type: userConstants.LOGOUT });
+};
+
+const resendConfirmation = async (userEmail, dispatch) => {
+  try {
+    const res = await axios.post(`${SERVER_URL}/api/users/resendToken`, {
+      email: userEmail
+    });
+    dispatch(
+      successNotification({
+        ...notificationOpts,
+        title: res.data.message,
+        autoDismiss: 0
+      })
+    );
+  } catch (error) {
+    dispatch(
+      errorNotification({
+        ...notificationOpts,
+        title: error.response.data.message
+      })
+    );
+  }
 };
