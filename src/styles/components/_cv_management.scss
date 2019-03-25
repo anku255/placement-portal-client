@@ -1,28 +1,38 @@
-.cv-user-view {
-  display: flex;
-  justify-content: center;
-  height: 50vh;
-  align-items: center;
-
-  .button {
-    margin: 1rem;
-  }
-}
-
-.cv-admin-view {
-  margin: 10rem auto;
-  max-width: 800px;
-  padding: 1rem;
-  border: 1px solid black;
-  flex-wrap: wrap;
-
-  .title {
-    width: 100%;
-    text-align: center;
-  }
-  .column {
+.cv-management {
+  .cv-user-view {
     display: flex;
     justify-content: center;
+    height: 50vh;
+    align-items: center;
+
+    .button {
+      margin: 1rem;
+    }
+  }
+
+  .cv-admin-view {
+    margin: 10rem auto;
+    max-width: 800px;
+    padding: 1rem;
+    border: 1px solid black;
     flex-wrap: wrap;
+
+    .title {
+      width: 100%;
+      text-align: center;
+    }
+    .column {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      @include media_query($mobile-breakpoint) {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  @include media_query($mobile-breakpoint) {
+    margin: 3rem 1rem;
   }
 }

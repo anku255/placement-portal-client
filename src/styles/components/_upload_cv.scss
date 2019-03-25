@@ -9,4 +9,8 @@
     margin-top: 1rem;
     width: 7rem;
   }
+
+  @include media_query($mobile-breakpoint) {
+    margin: 3rem 1rem;
+  }
 }

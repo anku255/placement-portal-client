@@ -10,9 +10,17 @@ class CVManagement extends Component {
     const { user } = this.props;
 
     if (user.type === userConstants.ADMIN) {
-      return <AdminView user={user} />;
+      return (
+        <div className="cv-management">
+          <AdminView user={user} />
+        </div>
+      );
     } else if (user.type === userConstants.USER) {
-      return <UserView user={user} />;
+      return (
+        <div className="cv-management">
+          <UserView user={user} />
+        </div>
+      );
     }
 
     return null;
