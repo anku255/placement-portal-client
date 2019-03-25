@@ -1,0 +1,12 @@
+.landing {
+
+  .hero {
+    .subtitle {
+      margin-top: 1rem;
+    }
+  }
+
+  @include media_query($mobile-breakpoint) {
+    margin: 3rem 1rem;
+  }
+}
