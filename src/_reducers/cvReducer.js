@@ -2,7 +2,9 @@ import { cvConstants } from "../_constants";
 
 const initialState = {
   uploading: false,
-  fetchingCV: false
+  fetchingCV: false,
+  usersWithCV: [],
+  fetchingUsers: false
 };
 
 export default function users(state = initialState, action) {
@@ -26,6 +28,17 @@ export default function users(state = initialState, action) {
       return {
         ...state,
         fetchingCV: false
+      };
+    case cvConstants.FETCH_USERS_CV_START:
+      return {
+        ...state,
+        fetchingUsers: true
+      };
+    case cvConstants.FETCH_USERS_CV_SUCCESS:
+      return {
+        ...state,
+        fetchingUsers: false,
+        usersWithCV: action.payload || []
       };
     default:
       return state;

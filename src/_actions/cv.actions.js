@@ -122,3 +122,25 @@ export const fetchAllCV = batchYear => async dispatch => {
     dispatch({ type: cvConstants.FETCH_CV_SUCCESS });
   }
 };
+
+export const fetchAllUsersWithCV = batchYear => async dispatch => {
+  dispatch({ type: cvConstants.FETCH_USERS_CV_START });
+  try {
+    const res = await axios.get(
+      `${SERVER_URL}/api/cv/all/users/batchYear/${batchYear}`
+    );
+
+    dispatch({ type: cvConstants.FETCH_USERS_CV_SUCCESS, payload: res.data });
+  } catch (err) {
+    console.log("err", err.response);
+    dispatch(
+      errorNotification({
+        ...notificationOpts,
+        title: err.response.data.message
+      })
+    );
+
+    // make fetchingCV false
+    dispatch({ type: cvConstants.FETCH_USERS_CV_SUCCESS });
+  }
+};

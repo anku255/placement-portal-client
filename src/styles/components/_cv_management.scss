@@ -29,7 +29,24 @@
       @include media_query($mobile-breakpoint) {
         justify-content: flex-start;
       }
+
+      .button.is-info {
+        margin-right: 1rem;
+      }
     }
+  }
+
+  .users-table-container {
+      max-width: 600px;
+      margin: 1rem auto;
+
+      table {
+       font-size: 1.6rem;
+
+       th, td {
+         text-align: center;
+       }
+      }
   }
 
   @include media_query($mobile-breakpoint) {

@@ -2,14 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import BatchYearSelect from "../common/form/BatchYearSelect";
 import Input from "../common/form/Input";
+import UsersTable from "./UsersTable";
 import cx from "classnames";
-import { fetchCVByRegNo, fetchAllCV } from "../../_actions";
+import {
+  fetchCVByRegNo,
+  fetchAllCV,
+  fetchAllUsersWithCV
+} from "../../_actions";
 
 class AdminView extends Component {
   state = {
     regNo: "",
     batchYear: new Date().getFullYear().toString(),
-    errors: {}
+    errors: {},
+    showUsersTable: false
   };
 
   handleInputChange = e => {
@@ -29,11 +35,16 @@ class AdminView extends Component {
     this.props.fetchCVByRegNo(batchYear, regNo);
   };
 
-  render() {
-    const { fetchingCV } = this.props;
+  fetchAllUsersWithCV = () => {
+    this.setState({ showUsersTable: true });
+    this.props.fetchAllUsersWithCV(this.state.batchYear);
+  };
+
+  DownloadCV = () => {
+    const { fetchingCV, fetchingUsers } = this.props;
     return (
-      <div className="cv-admin-view columns">
-      <div className="title is-size-2">Download CV</div>
+      <>
+        <div className="title is-size-2">Download CV</div>
         <div className="column">
           <div className="get-single-cv">
             <BatchYearSelect
@@ -65,6 +76,12 @@ class AdminView extends Component {
               value={this.state.batchYear}
             />
             <button
+              className={cx("button is-info", { "is-loading": fetchingUsers })}
+              onClick={this.fetchAllUsersWithCV}
+            >
+              Get Users
+            </button>
+            <button
               className={cx("button is-primary", { "is-loading": fetchingCV })}
               onClick={() => this.props.fetchAllCV(this.state.batchYear)}
             >
@@ -72,16 +89,34 @@ class AdminView extends Component {
             </button>
           </div>
         </div>
-      </div>
+      </>
+    );
+  };
+
+  render() {
+    return (
+      <>
+        <div className="cv-admin-view columns">
+          <this.DownloadCV />
+        </div>
+
+        {this.state.showUsersTable ? (
+          <div className="users-table-container">
+            <UsersTable users={this.props.usersWithCV} />
+          </div>
+        ) : null}
+      </>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  fetchingCV: state.cv.fetchingCV
+  fetchingCV: state.cv.fetchingCV,
+  fetchingUsers: state.cv.fetchingUsers,
+  usersWithCV: state.cv.usersWithCV
 });
 
 export default connect(
   mapStateToProps,
-  { fetchCVByRegNo, fetchAllCV }
+  { fetchCVByRegNo, fetchAllCV, fetchAllUsersWithCV }
 )(AdminView);
