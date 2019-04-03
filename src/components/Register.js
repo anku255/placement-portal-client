@@ -10,7 +10,7 @@ class Register extends Component {
     email: "",
     name: "",
     password: "",
-    batchYear: new Date().getFullYear().toString(),
+    batchYear: (new Date().getFullYear() + 1).toString(), // Default 2020
     regNo: ""
   };
 

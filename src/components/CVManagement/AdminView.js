@@ -13,7 +13,7 @@ import {
 class AdminView extends Component {
   state = {
     regNo: "",
-    batchYear: new Date().getFullYear().toString(),
+    batchYear: (new Date().getFullYear() + 1).toString(), // Default 2020
     errors: {},
     showUsersTable: false
   };
