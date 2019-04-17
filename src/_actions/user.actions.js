@@ -143,3 +143,46 @@ const resendConfirmation = async (userEmail, dispatch) => {
     );
   }
 };
+
+export const editProfile = userData => async dispatch => {
+  dispatch({ type: userConstants.REQUEST });
+
+  try {
+    const res = await axios.post(
+      `${SERVER_URL}/api/users/edit-profile`,
+      userData
+    );
+
+    dispatch(
+      successNotification({
+        ...notificationOpts,
+        title: res.data.message
+      })
+    );
+
+    // fetch current user for updated info
+    const response = await axios.post(`${SERVER_URL}/api/users/current_user`);
+    const { token } = response.data;
+    localStorage.setItem("jwtToken", token);
+    const decoded = jwt_decode(token);
+    // Set current user
+    dispatch(setCurrentUser(decoded));
+  } catch (err) {
+    const error = err.response.data;
+    // Send validation errors to the reducer
+    if (error.type === "validation") {
+      return dispatch({
+        type: userConstants.ERORRS,
+        payload: error.errors
+      });
+    }
+    // Send alert for miscellaneous errors
+    dispatch(
+      errorNotification({
+        ...notificationOpts,
+        title: error.message
+      })
+    );
+    dispatch({ type: userConstants.CLEAR_ERRORS });
+  }
+};

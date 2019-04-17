@@ -89,6 +89,9 @@ class Header extends Component {
             <a href="/cv" className="navbar-item">
               Manage CV
             </a>
+            <a href="/edit-profile" className="navbar-item">
+              Edit Profile
+            </a>
           </div>
 
           <div className="navbar-end">
