@@ -6,7 +6,7 @@ import {
   success as successNotification
 } from "react-notification-system-redux";
 import setAuthToken from "../utils/setAuthToken";
-import { SERVER_URL } from "../_constants";
+import { SERVER_URL } from "../_constants/keys";
 
 const notificationOpts = {
   title: "",
