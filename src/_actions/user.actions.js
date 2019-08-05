@@ -224,3 +224,38 @@ export const forgotPassword = userEmail => async dispatch => {
     );
   }
 };
+export const resetPassword = (password, token, history) => async dispatch => {
+  try {
+    if (!password || password.length <= 0) {
+      return dispatch({
+        type: userConstants.ERORRS,
+        payload: { password: "Please enter your new password" }
+      });
+    } else {
+      dispatch({ type: userConstants.REQUEST });
+    }
+
+    const res = await axios.post(`${SERVER_URL}/api/users/resetPassword`, {
+      password,
+      token
+    });
+
+    dispatch({ type: userConstants.SET_LOADING_FALSE });
+    dispatch(
+      successNotification({
+        ...notificationOpts,
+        title: res.data.message,
+        autoDismiss: 0
+      })
+    );
+    setTimeout(() => history.push("/login"), 2000);
+  } catch (error) {
+    dispatch({ type: userConstants.SET_LOADING_FALSE });
+    dispatch(
+      errorNotification({
+        ...notificationOpts,
+        title: error.response.data.message
+      })
+    );
+  }
+};
