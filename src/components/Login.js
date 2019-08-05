@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../_actions";
+import { Link } from "react-router-dom";
 import Input from "../components/common/form/Input";
 import cx from "classnames";
 
@@ -39,6 +40,11 @@ class Login extends Component {
           value={this.state.password}
           errorText={errors.password}
         />
+        <div className="field">
+          <div className="control forgot-password-link">
+            <Link to="/forgot">Forgot Password?</Link>
+          </div>
+        </div>
         <button
           className={cx("button is-primary", { "is-loading": loading })}
           onClick={this.handleSumbit}

@@ -1,4 +1,9 @@
 .login {
   max-width: 50rem;
   padding: 2rem 1rem;
+
+  .forgot-password-link {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
