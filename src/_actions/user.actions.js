@@ -186,3 +186,41 @@ export const editProfile = userData => async dispatch => {
     dispatch({ type: userConstants.CLEAR_ERRORS });
   }
 };
+
+export const clearUserErrors = () => dispatch => {
+  dispatch({ type: userConstants.CLEAR_ERRORS });
+};
+
+export const forgotPassword = userEmail => async dispatch => {
+  try {
+    if (!userEmail || userEmail.length <= 0) {
+      return dispatch({
+        type: userConstants.ERORRS,
+        payload: { email: "Please enter your email" }
+      });
+    } else {
+      dispatch({ type: userConstants.REQUEST });
+    }
+
+    const res = await axios.post(`${SERVER_URL}/api/users/forgotPassword`, {
+      email: userEmail
+    });
+
+    dispatch({ type: userConstants.SET_LOADING_FALSE });
+    dispatch(
+      successNotification({
+        ...notificationOpts,
+        title: res.data.message,
+        autoDismiss: 0
+      })
+    );
+  } catch (error) {
+    dispatch({ type: userConstants.SET_LOADING_FALSE });
+    dispatch(
+      errorNotification({
+        ...notificationOpts,
+        title: error.response.data.message
+      })
+    );
+  }
+};

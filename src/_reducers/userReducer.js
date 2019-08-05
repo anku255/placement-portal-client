@@ -14,6 +14,11 @@ export default function users(state = initialState, action) {
         ...state,
         loading: true
       };
+    case userConstants.SET_LOADING_FALSE:
+      return {
+        ...state,
+        loading: false
+      };
     case userConstants.ERORRS:
       return {
         ...state,
