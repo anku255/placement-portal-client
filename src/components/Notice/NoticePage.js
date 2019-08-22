@@ -7,8 +7,11 @@ import NoticeCard from "./NoticeCard";
 import Pagination from "../common/Pagination/Pagination";
 import { CenteredLoader as Loader } from "../common/Loader";
 import { fetchNotices } from "../../_actions";
+import { userConstants } from "../../_constants";
 
-const NoticeList = ({ notices }) => {
+const NoticeList = props => {
+  const { notices, isAuthenticated, user } = props;
+  const showActions = isAuthenticated && user.type === userConstants.ADMIN;
   return (
     <ul className="notice-list">
       {notices.map(notice => (
@@ -18,6 +21,7 @@ const NoticeList = ({ notices }) => {
             deadline={notice.deadline}
             handleEdit={() => alert("Edit clicked!")}
             handleDelete={() => alert("Delete clicked!")}
+            showActions={showActions}
           />
         </li>
       ))}
@@ -54,7 +58,7 @@ class NoticePage extends Component {
           currentPage={this.state.currentPage - 1}
           handlePageChange={this.handlePageChange}
         />
-        <NoticeList notices={notices} />
+        <NoticeList {...this.props} />
         <Pagination
           totalPages={totalPages}
           currentPage={this.state.currentPage - 1}
@@ -68,7 +72,9 @@ class NoticePage extends Component {
 const mapStateToProps = state => ({
   loading: state.notice.loading,
   notices: state.notice.notices,
-  totalPages: state.notice.totalPages
+  totalPages: state.notice.totalPages,
+  isAuthenticated: state.users.isAuthenticated,
+  user: state.users.user
 });
 
 export default connect(

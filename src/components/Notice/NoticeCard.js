@@ -17,18 +17,20 @@ function NoticeCard(props) {
       <div className="card-content">
         <Markdown>{props.content}</Markdown>
       </div>
-      <footer className="card-footer">
-        <p className="card-footer-item">
-          <button className="button is-warning" onClick={props.handleEdit}>
-            Edit
-          </button>
-        </p>
-        <p className="card-footer-item">
-          <button className="button is-danger" onClick={props.handleDelete}>
-            Delete
-          </button>
-        </p>
-      </footer>
+      {props.showActions ? (
+        <footer className="card-footer">
+          <p className="card-footer-item">
+            <button className="button is-warning" onClick={props.handleEdit}>
+              Edit
+            </button>
+          </p>
+          <p className="card-footer-item">
+            <button className="button is-danger" onClick={props.handleDelete}>
+              Delete
+            </button>
+          </p>
+        </footer>
+      ) : null}
     </div>
   );
 }
@@ -37,7 +39,12 @@ NoticeCard.propTypes = {
   content: PropTypes.string.isRequired,
   deadline: PropTypes.string.isRequired,
   handleEdit: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired
+  handleDelete: PropTypes.func.isRequired,
+  showActions: PropTypes.bool
+};
+
+NoticeCard.defaultProps = {
+  showActions: false
 };
 
 export default NoticeCard;
