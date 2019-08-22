@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Markdown from "markdown-to-jsx";
-import cx from "classnames";
 
-import TextArea from "../common/form/TextArea";
-import Input from "../common/form/Input";
-
+import NoticeForm from "./NoticeForm";
 import { addNotice } from "../../_actions";
 
 class AddNoticePage extends Component {
@@ -23,52 +19,15 @@ class AddNoticePage extends Component {
   };
 
   render() {
+    const { contentMarkdown, deadline } = this.state;
     return (
-      <div className="container add-notice-page">
-        <div className="columns">
-          <div className="column">
-            <TextArea
-              name="contentMarkdown"
-              label="Notice Content"
-              placeholder="Type your notice here"
-              helpText="*Markdown is supported"
-              rows="4"
-              value={this.state.contentMarkdown}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="column">
-            <div className="preview-label">Notice Preview</div>
-            <div className="preview">
-              <Markdown>{this.state.contentMarkdown}</Markdown>
-            </div>
-          </div>
-        </div>
-
-        <div className="columns">
-          <div className="column">
-            <Input
-              name="deadline"
-              type="date"
-              label="Deadline"
-              value={this.state.deadline}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="column">
-            <div className="submit-btn">
-              <button
-                className={cx("button is-primary", {
-                  "is-loading": this.props.addingNotice
-                })}
-                onClick={this.handleSubmit}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <NoticeForm
+        contentMarkdown={contentMarkdown}
+        deadline={deadline}
+        addingNotice={this.props.addingNotice}
+        handleInputChange={this.handleInputChange}
+        handleSubmit={this.handleSubmit}
+      />
     );
   }
 }

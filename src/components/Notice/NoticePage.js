@@ -32,7 +32,7 @@ const NoticeList = props => {
 };
 
 class NoticePage extends Component {
-  state = { currentPage: 0, isModalVisible: true, selectedNotice: null };
+  state = { currentPage: 0, isModalVisible: false, selectedNotice: null };
 
   componentDidMount = () => {
     const { page = 1 } = queryString.parse(this.props.location.search);
