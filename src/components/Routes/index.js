@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import PrivateRoute from "../common/PrivateRoute";
+import AdminRoute from "../common/AdminRoute";
 import Login from "../Login";
 import Register from "../Register";
 import ForgotPassword from "../ForgotPassword";
@@ -10,6 +11,9 @@ import EditProfile from "../EditProfile/EditProfile";
 import CVManagement from "../CVManagement";
 import UploadCVForm from "../CVManagement/UploadCVForm";
 import Landing from "../Landing";
+import NoticePage from "../Notice/NoticePage";
+import AddNoticePage from "../Notice/AddNoticePage";
+import EditNoticePage from "../Notice/EditNoticePage";
 
 export default function Routes() {
   return (
@@ -22,6 +26,13 @@ export default function Routes() {
       <PrivateRoute path="/edit-profile" exact component={EditProfile} />
       <PrivateRoute path="/cv" exact component={CVManagement} />
       <PrivateRoute path="/cv/upload" exact component={UploadCVForm} />
+      <PrivateRoute path="/notice" exact component={NoticePage} />
+      <AdminRoute path="/notice/add" exact component={AddNoticePage} />
+      <AdminRoute
+        path="/notice/edit/:noticeId"
+        exact
+        component={EditNoticePage}
+      />
     </BrowserRouter>
   );
 }

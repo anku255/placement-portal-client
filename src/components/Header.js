@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../_actions";
+import { userConstants } from "../_constants";
 
 class Header extends Component {
   componentDidMount = () => {
@@ -64,10 +65,7 @@ class Header extends Component {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a
-            href="/"
-            className="navbar-item is-size-3 has-text-weight-bold"
-          >
+          <a href="/" className="navbar-item is-size-3 has-text-weight-bold">
             Placement Portal
           </a>
 
@@ -89,6 +87,14 @@ class Header extends Component {
             <a href="/cv" className="navbar-item">
               Manage CV
             </a>
+            <a href="/notice" className="navbar-item">
+              Notices
+            </a>
+            {this.props.user.type === userConstants.ADMIN ? (
+              <a href="/notice/add" className="navbar-item">
+                Add Notice
+              </a>
+            ) : null}
             <a href="/edit-profile" className="navbar-item">
               Edit Profile
             </a>

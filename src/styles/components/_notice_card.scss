@@ -1,0 +1,13 @@
+.notice-card {
+  max-width: 80rem;
+  margin: 0 auto;
+  .card-footer {
+    .card-footer-item {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.notice-card.is-active {
+  border: 1px solid rgb(42, 197, 42);
+}
