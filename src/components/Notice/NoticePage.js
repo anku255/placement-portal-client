@@ -1,21 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import uuidV4 from "uuid/v4";
+import queryString from "query-string";
 
 import NoticeCard from "./NoticeCard";
 import Pagination from "../common/Pagination/Pagination";
-
-const noticesData = [
-  {
-    deadline: new Date("2019/08/28"),
-    contentMarkdown:
-      "# Cisco Technologies Google Form <br/> \n **Deadline:** 28th August, 2019 <br/> **Expected CTC:** 7-9 Lacs <br/> **Link to Google Form:** [Click Here](https://google.com/)"
-  },
-  {
-    deadline: new Date("2019/08/10"),
-    contentMarkdown:
-      "# Kuliza Systems Google Form <br/> \n**Deadline:** 24th August, 2019 <br/> **Expected CTC:** 7-9 Lacs <br/> **Link to Google Form:** [Click Here](https://google.com/)"
-  }
-];
+import { CenteredLoader as Loader } from "../common/Loader";
+import { fetchNotices } from "../../_actions";
 
 const NoticeList = ({ notices }) => {
   return (
@@ -35,23 +26,52 @@ const NoticeList = ({ notices }) => {
 };
 
 class NoticePage extends Component {
+  state = { currentPage: 0 };
+
+  componentDidMount = () => {
+    const { page = 1 } = queryString.parse(this.props.location.search);
+    this.setState({ currentPage: page });
+    this.props.fetchNotices(page);
+  };
+
+  handlePageChange = ({ selected }) => {
+    this.props.history.push(`/notice?page=${selected + 1}`);
+    this.props.fetchNotices(selected + 1);
+    this.setState({ currentPage: selected + 1 });
+  };
+
   render() {
+    const { notices, totalPages, loading } = this.props;
+
+    if (loading) {
+      return <Loader />;
+    }
+
     return (
       <div className="notice-page">
         <Pagination
-          totalPages={10}
-          currentPage={3}
-          handlePageChange={({ selected }) => alert(selected + 1)}
+          totalPages={totalPages}
+          currentPage={this.state.currentPage - 1}
+          handlePageChange={this.handlePageChange}
         />
-        <NoticeList notices={noticesData} />
+        <NoticeList notices={notices} />
         <Pagination
-          totalPages={10}
-          currentPage={3}
-          handlePageChange={({ selected }) => alert(selected + 1)}
+          totalPages={totalPages}
+          currentPage={this.state.currentPage - 1}
+          handlePageChange={this.handlePageChange}
         />
       </div>
     );
   }
 }
 
-export default NoticePage;
+const mapStateToProps = state => ({
+  loading: state.notice.loading,
+  notices: state.notice.notices,
+  totalPages: state.notice.totalPages
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchNotices }
+)(NoticePage);

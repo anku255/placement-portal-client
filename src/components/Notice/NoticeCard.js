@@ -4,7 +4,7 @@ import Markdown from "markdown-to-jsx";
 import cx from "classnames";
 
 const isFutureDate = date => {
-  return date.getTime() >= new Date().getTime();
+  return new Date(date).getTime() >= new Date().getTime();
 };
 
 function NoticeCard(props) {
@@ -35,7 +35,7 @@ function NoticeCard(props) {
 
 NoticeCard.propTypes = {
   content: PropTypes.string.isRequired,
-  deadline: PropTypes.object.isRequired,
+  deadline: PropTypes.string.isRequired,
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 };
