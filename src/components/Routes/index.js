@@ -13,6 +13,7 @@ import UploadCVForm from "../CVManagement/UploadCVForm";
 import Landing from "../Landing";
 import NoticePage from "../Notice/NoticePage";
 import AddNoticePage from "../Notice/AddNoticePage";
+import EditNoticePage from "../Notice/EditNoticePage";
 
 export default function Routes() {
   return (
@@ -27,6 +28,11 @@ export default function Routes() {
       <PrivateRoute path="/cv/upload" exact component={UploadCVForm} />
       <Route path="/notice" exact component={NoticePage} />
       <AdminRoute path="/notice/add" exact component={AddNoticePage} />
+      <AdminRoute
+        path="/notice/edit/:noticeId"
+        exact
+        component={EditNoticePage}
+      />
     </BrowserRouter>
   );
 }

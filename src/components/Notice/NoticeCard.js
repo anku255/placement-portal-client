@@ -20,7 +20,12 @@ function NoticeCard(props) {
       {props.showActions ? (
         <footer className="card-footer">
           <p className="card-footer-item">
-            <button className="button is-warning" onClick={props.handleEdit}>
+            <button
+              className="button is-warning"
+              onClick={() =>
+                props.handleEdit(props.noticeId, props.content, props.deadline)
+              }
+            >
               Edit
             </button>
           </p>

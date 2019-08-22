@@ -11,7 +11,13 @@ import { fetchNotices, deleteNotice } from "../../_actions";
 import { userConstants } from "../../_constants";
 
 const NoticeList = props => {
-  const { notices, handleCardDeleteBtn, isAuthenticated, user } = props;
+  const {
+    notices,
+    handleCardDeleteBtn,
+    handleCardEditBtn,
+    isAuthenticated,
+    user
+  } = props;
   const showActions = isAuthenticated && user.type === userConstants.ADMIN;
   return (
     <ul className="notice-list">
@@ -21,7 +27,7 @@ const NoticeList = props => {
             noticeId={notice._id}
             content={notice.contentMarkdown}
             deadline={notice.deadline}
-            handleEdit={() => alert("Edit clicked!")}
+            handleEdit={handleCardEditBtn}
             handleDelete={handleCardDeleteBtn}
             showActions={showActions}
           />
@@ -48,6 +54,19 @@ class NoticePage extends Component {
 
   handleCardDeleteBtn = noticeId => {
     this.setState({ isModalVisible: true, selectedNotice: noticeId });
+  };
+
+  handleCardEditBtn = (noticeId, content, deadline) => {
+    const dateString = deadline.slice(0, 10);
+
+    this.props.history.push({
+      pathname: `/notice/edit/${noticeId}`,
+      state: {
+        contentMarkdown: content,
+        noticeId,
+        deadline: dateString
+      }
+    });
   };
 
   hideModal = () => {
@@ -82,6 +101,7 @@ class NoticePage extends Component {
         <NoticeList
           {...this.props}
           handleCardDeleteBtn={this.handleCardDeleteBtn}
+          handleCardEditBtn={this.handleCardEditBtn}
         />
         <Pagination
           totalPages={totalPages}
