@@ -59,7 +59,7 @@ export const addNotice = (data, history) => async dispatch => {
 };
 export const deleteNotice = noticeId => async dispatch => {
   try {
-    const res = await axios.delete(`${SERVER_URL}/api/notice/${noticeId}`);
+    await axios.delete(`${SERVER_URL}/api/notice/${noticeId}`);
 
     dispatch(
       successNotification({
@@ -80,7 +80,7 @@ export const deleteNotice = noticeId => async dispatch => {
 };
 export const editNotice = (noticeId, data, history) => async dispatch => {
   try {
-    const res = await axios.put(`${SERVER_URL}/api/notice/${noticeId}`, data);
+    await axios.put(`${SERVER_URL}/api/notice/${noticeId}`, data);
 
     dispatch(
       successNotification({
