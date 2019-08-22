@@ -5,22 +5,24 @@ import queryString from "query-string";
 
 import NoticeCard from "./NoticeCard";
 import Pagination from "../common/Pagination/Pagination";
+import DeleteNoticeModal from "./DeleteNoticeModal";
 import { CenteredLoader as Loader } from "../common/Loader";
-import { fetchNotices } from "../../_actions";
+import { fetchNotices, deleteNotice } from "../../_actions";
 import { userConstants } from "../../_constants";
 
 const NoticeList = props => {
-  const { notices, isAuthenticated, user } = props;
+  const { notices, handleCardDeleteBtn, isAuthenticated, user } = props;
   const showActions = isAuthenticated && user.type === userConstants.ADMIN;
   return (
     <ul className="notice-list">
       {notices.map(notice => (
         <li key={uuidV4()}>
           <NoticeCard
+            noticeId={notice._id}
             content={notice.contentMarkdown}
             deadline={notice.deadline}
             handleEdit={() => alert("Edit clicked!")}
-            handleDelete={() => alert("Delete clicked!")}
+            handleDelete={handleCardDeleteBtn}
             showActions={showActions}
           />
         </li>
@@ -30,7 +32,7 @@ const NoticeList = props => {
 };
 
 class NoticePage extends Component {
-  state = { currentPage: 0 };
+  state = { currentPage: 0, isModalVisible: true, selectedNotice: null };
 
   componentDidMount = () => {
     const { page = 1 } = queryString.parse(this.props.location.search);
@@ -44,8 +46,22 @@ class NoticePage extends Component {
     this.setState({ currentPage: selected + 1 });
   };
 
+  handleCardDeleteBtn = noticeId => {
+    this.setState({ isModalVisible: true, selectedNotice: noticeId });
+  };
+
+  hideModal = () => {
+    this.setState({ isModalVisible: false });
+  };
+
+  handleModalDeleteBtn = () => {
+    this.hideModal();
+    this.props.deleteNotice(this.state.selectedNotice);
+    this.setState({ selectedNotice: null });
+  };
+
   render() {
-    const { notices, totalPages, loading } = this.props;
+    const { totalPages, loading } = this.props;
 
     if (loading) {
       return <Loader />;
@@ -53,12 +69,20 @@ class NoticePage extends Component {
 
     return (
       <div className="notice-page">
+        <DeleteNoticeModal
+          isVisible={this.state.isModalVisible}
+          handleCancel={this.hideModal}
+          handleDelete={this.handleModalDeleteBtn}
+        />
         <Pagination
           totalPages={totalPages}
           currentPage={this.state.currentPage - 1}
           handlePageChange={this.handlePageChange}
         />
-        <NoticeList {...this.props} />
+        <NoticeList
+          {...this.props}
+          handleCardDeleteBtn={this.handleCardDeleteBtn}
+        />
         <Pagination
           totalPages={totalPages}
           currentPage={this.state.currentPage - 1}
@@ -79,5 +103,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchNotices }
+  { fetchNotices, deleteNotice }
 )(NoticePage);

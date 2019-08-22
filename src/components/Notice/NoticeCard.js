@@ -25,7 +25,10 @@ function NoticeCard(props) {
             </button>
           </p>
           <p className="card-footer-item">
-            <button className="button is-danger" onClick={props.handleDelete}>
+            <button
+              className="button is-danger"
+              onClick={() => props.handleDelete(props.noticeId)}
+            >
               Delete
             </button>
           </p>
@@ -36,6 +39,7 @@ function NoticeCard(props) {
 }
 
 NoticeCard.propTypes = {
+  noticeId: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   deadline: PropTypes.string.isRequired,
   handleEdit: PropTypes.func.isRequired,

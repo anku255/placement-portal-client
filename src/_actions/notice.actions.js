@@ -57,3 +57,24 @@ export const addNotice = (data, history) => async dispatch => {
     dispatch({ type: noticeConstants.ADD_NOTICE_ERROR });
   }
 };
+export const deleteNotice = noticeId => async dispatch => {
+  try {
+    const res = await axios.delete(`${SERVER_URL}/api/notice/${noticeId}`);
+
+    dispatch(
+      successNotification({
+        ...notificationOpts,
+        title: "Notice deleted successfully!"
+      })
+    );
+
+    dispatch(fetchNotices());
+  } catch (err) {
+    dispatch(
+      errorNotification({
+        ...notificationOpts,
+        title: err.response.data.message
+      })
+    );
+  }
+};
