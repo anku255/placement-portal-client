@@ -26,7 +26,7 @@ export default function Routes() {
       <PrivateRoute path="/edit-profile" exact component={EditProfile} />
       <PrivateRoute path="/cv" exact component={CVManagement} />
       <PrivateRoute path="/cv/upload" exact component={UploadCVForm} />
-      <Route path="/notice" exact component={NoticePage} />
+      <PrivateRoute path="/notice" exact component={NoticePage} />
       <AdminRoute path="/notice/add" exact component={AddNoticePage} />
       <AdminRoute
         path="/notice/edit/:noticeId"
