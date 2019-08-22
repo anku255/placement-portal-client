@@ -1,0 +1,23 @@
+.add-notice-page {
+  margin: 2rem auto;
+  .preview-label {
+    color: #363636;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .preview {
+    padding: 10px;
+    width: 100%;
+    border: 0.5px solid black;
+    min-height: 118px;
+  }
+
+  .submit-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 6.8rem;
+  }
+}
