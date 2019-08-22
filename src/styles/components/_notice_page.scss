@@ -1,0 +1,11 @@
+.notice-page {
+  margin: 2rem;
+
+  ul.notice-list {
+    list-style: none;
+
+    li:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+}

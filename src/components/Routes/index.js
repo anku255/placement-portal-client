@@ -10,6 +10,7 @@ import EditProfile from "../EditProfile/EditProfile";
 import CVManagement from "../CVManagement";
 import UploadCVForm from "../CVManagement/UploadCVForm";
 import Landing from "../Landing";
+import NoticePage from "../Notice/NoticePage";
 
 export default function Routes() {
   return (
@@ -22,6 +23,7 @@ export default function Routes() {
       <PrivateRoute path="/edit-profile" exact component={EditProfile} />
       <PrivateRoute path="/cv" exact component={CVManagement} />
       <PrivateRoute path="/cv/upload" exact component={UploadCVForm} />
+      <Route path="/notice" exact component={NoticePage} />
     </BrowserRouter>
   );
 }
